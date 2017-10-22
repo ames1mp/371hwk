@@ -22,11 +22,11 @@
         </tbody>
     </table>
     <h3 display = "inline-block">Insert Rows</h3>
-    Name: <input type = "text" id="nameField" pattern="([A-Z][a-z]* (([A-Z]\.)|([A-Z])|([A-Z][a-z]*))?\s?[A-Z][a-z]*)"
+    Name: <input type ="text" id="nameField" pattern="([A-Z][a-z]* (([A-Z]\.)|([A-Z])|([A-Z][a-z]*))?\s?[A-Z][a-z]*)"
                  required="true">
-    Phone Number: <input type = "text" id="phoneField" pattern="[0-9]{7}([0-9]{3})?" required="true">
+    Phone Number: <input type ="text" id="phoneField" pattern="[0-9]{7}([0-9]{3})?" required="true">
     Age: <input type = "number" id="ageField" min="1" required="true">
-    <button id ="submit" >Submit</button>
+    <button id ="submit">Submit</button>
 
 
 
@@ -56,7 +56,6 @@
 
         snapshot.forEach(function(childSnapshot) {
             row = document.getElementById("tBody").insertRow(-1);
-            console.log(childSnapshot.val().name);
             cell = row.insertCell(-1);
             cell.innerHTML = childSnapshot.val().name;
             cell = row.insertCell(-1);
@@ -80,15 +79,34 @@
         reader.readAsText(upFile);
         reader.onloadend = function() {
            var json = JSON.parse(reader.result);
-            
+
            for (var i = 0; i < json.length; ++i) {
                 friendRef.push().set(json[i]);
                document.getElementById("recordsInserted").innerHTML = (i+1) + " Records Inserted";
             }
 
         };
-
     });
+
+    var submitButton = document.getElementById("submit");
+    submit.addEventListener("click", function() {
+        friendName = document.getElementById("nameField").value;
+        friendPhone = document.getElementById("phoneField").value;
+        console.log("~~~~~~~~" + friendPhone);
+        friendAge = document.getElementById("ageField").value;
+        friendAge = parseInt(friendAge);
+
+        function upload(friendName, friendPhone, friendAge) {
+            friendRef.push().set(
+                {
+                    name: friendName,
+                    phone: friendPhone,
+                    age: friendAge
+                }
+            );
+        }
+        upload(friendName, friendPhone, friendAge);
+    })
 
 </script>
 
