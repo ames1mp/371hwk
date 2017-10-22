@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mike Ames Hwk 5</title>
+</head>
+<body>
+
+    <h1>Mike Ames - Hwk 5 </h1>
+    <h3 display="inline-block">Upload a JSON file</h3>
+
+    <input type="file" id="upFile"/>
+    <button id="upload">Upload</button>
+    <p id = recordsInserted> </p>
+
+
+
+
+</body>
+</html>
+
+
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBqw0EpJshfwUyY6DXsnt_X27_yQn0JHxM",
+        authDomain: "hwk5-4f416.firebaseapp.com",
+        databaseURL: "https://hwk5-4f416.firebaseio.com",
+        projectId: "hwk5-4f416",
+        storageBucket: "hwk5-4f416.appspot.com",
+        messagingSenderId: "489472781832"
+    };
+    firebase.initializeApp(config);
+
+
+
+
+
+    var uploadButton = document.getElementById("upload");
+    uploadButton.addEventListener("click", function(){
+        var upFile = document.getElementById("upFile").files[0];
+
+        var reader = new FileReader();
+        reader.readAsText(upFile);
+        reader.onloadend = function() {
+            //alert(reader.result);
+           var json = JSON.parse(reader.result);
+
+           rootref = firebase.database().ref();
+           friendRef = rootref.child("friend");
+
+           for (var i = 0; i < json.length; ++i) {
+               friendRef.push().set(json[i]);
+           }
+          document.getElementById("recordsInserted").innerHTML = json.length + " Records Inserted";
+
+        };
+
+    });
+
+</script>
+
