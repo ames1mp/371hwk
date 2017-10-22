@@ -12,7 +12,21 @@
     <input type="file" id="upFile"/>
     <button id="upload">Upload</button>
     <p id = recordsInserted> </p>
-
+    <table id = showAll>
+        <thead>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Age</th>
+        </thead>
+        <tbody id="tBody">
+        </tbody>
+    </table>
+    <h3 display = "inline-block">Insert Rows</h3>
+    Name: <input type = "text" id="nameField" pattern="([A-Z][a-z]* (([A-Z]\.)|([A-Z])|([A-Z][a-z]*))?\s?[A-Z][a-z]*)"
+                 required="true">
+    Phone Number: <input type = "text" id="phoneField" pattern="[0-9]{7}([0-9]{3})?" required="true">
+    Age: <input type = "number" id="ageField" min="1" required="true">
+    <button id ="submit" >Submit</button>
 
 
 
@@ -32,10 +46,31 @@
         messagingSenderId: "489472781832"
     };
     firebase.initializeApp(config);
+    rootref = firebase.database().ref();
+    friendRef = rootref.child("friend");
 
 
+    friendRef.on("value", function(snapshot){
+        tBody = document.getElementById("tBody");
+        tBody.innerHTML = "";
 
-
+        snapshot.forEach(function(childSnapshot) {
+            row = document.getElementById("tBody").insertRow(-1);
+            console.log(childSnapshot.val().name);
+            cell = row.insertCell(-1);
+            cell.innerHTML = childSnapshot.val().name;
+            cell = row.insertCell(-1);
+            var phoneStr = childSnapshot.val().phone;
+            if(phoneStr.length == 7) {
+                phoneStr = phoneStr.substr(0, 3) + "-" + phoneStr.substr(3,6);
+            } else {
+                phoneStr = "(" + phoneStr.substr(0, 3) + ") " + phoneStr.substr(3,3) + "-" + phoneStr.substr(6);
+            }
+            cell.innerHTML = phoneStr;
+            cell = row.insertCell(-1);
+            cell.innerHTML = childSnapshot.val().age;
+        })
+    });
 
     var uploadButton = document.getElementById("upload");
     uploadButton.addEventListener("click", function(){
@@ -44,16 +79,12 @@
         var reader = new FileReader();
         reader.readAsText(upFile);
         reader.onloadend = function() {
-            //alert(reader.result);
            var json = JSON.parse(reader.result);
-
-           rootref = firebase.database().ref();
-           friendRef = rootref.child("friend");
-
+            
            for (var i = 0; i < json.length; ++i) {
-               friendRef.push().set(json[i]);
-           }
-          document.getElementById("recordsInserted").innerHTML = json.length + " Records Inserted";
+                friendRef.push().set(json[i]);
+               document.getElementById("recordsInserted").innerHTML = (i+1) + " Records Inserted";
+            }
 
         };
 
