@@ -27,8 +27,18 @@
     Phone Number: <input type ="text" id="phoneField" pattern="[0-9]{7}([0-9]{3})?" required="true">
     Age: <input type = "number" id="ageField" min="1" required="true">
     <button id ="submit">Submit</button>
-
-
+    <h3>Search Records</h3>
+    Search: <input type = "text" id="searchBox">
+    <button id = "searchButton">Search</button>
+    <table id = searchTable>
+        <thead>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Age</th>
+        </thead>
+        <tbody id="searchTabBody">
+        </tbody>
+    </table>
 
 </body>
 </html>
@@ -92,7 +102,6 @@
     submit.addEventListener("click", function() {
         friendName = document.getElementById("nameField").value;
         friendPhone = document.getElementById("phoneField").value;
-        console.log("~~~~~~~~" + friendPhone);
         friendAge = document.getElementById("ageField").value;
         friendAge = parseInt(friendAge);
 
@@ -107,6 +116,28 @@
         }
         upload(friendName, friendPhone, friendAge);
     })
+
+    var searchButton = document.getElementById("searchButton");
+    searchButton.addEventListener("click", function() {
+        searchString = document.getElementById("searchBox").value;
+
+        tableBody = document.getElementById("searchTabBody");
+        tableBody.innerHTML = "";
+        friendRef.orderByKey().on("value", function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                var name = childSnapshot.val().name.toUpperCase();
+                if (name.includes(searchString.toUpperCase())) {
+                    row = tableBody.insertRow(-1);
+                    col = row.insertCell(-1);
+                    col.innerHTML = childSnapshot.val().name;
+                    col = row.insertCell(-1);
+                    col.innerHTML = childSnapshot.val().phone;
+                    col = row.insertCell(-1);
+                    col.innerHTML = childSnapshot.val().age;
+                }
+            })
+        })
+    });
 
 </script>
 
