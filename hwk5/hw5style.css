@@ -1,0 +1,40 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: deepskyblue;
+    background-image: url("background.jpg");
+    font-family: "Impact", Charcoal, sans-serif;
+    color: white;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 50px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+tr , th {
+    vertical-align: bottom;
+}
+
+th  {
+    padding: 10px 0;
+}
+
+td {
+    padding: 10px 0;
+}
+
+input:invalid {
+    background-color: deeppink;
+}
+
+input:valid:not(#upFile) {
+    background-color: greenyellow;
+}
