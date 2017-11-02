@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA APOD Viewer</title>
+    <link rel="stylesheet" type="text/css" href="hw6style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="hw6script.js"></script>
+</head>
+<body>
+<header>
+    <img src="logo.svg">
+    <h1>Astronomy Picture of the Day Viewer</h1>
+</header>
+
+<div id="main">
+    <div id ="queryBox">
+        <div id="searchArea">
+            DATE (YYYY-MM-DD): <input type="date" id="dateBox" name="dateBox" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+            HD <input type="checkbox" id="HDBox" name = "HDBox" class="checkBox">
+        </div>
+        <input type="submit" class="button" id="submitBtn" name="submitBtn" value="Submit">
+        <p id="errorBox">Errors Go Here</p>
+    </div>
+    <div id="results">
+        <table id = resultsTable>
+            <th>
+                <td>
+                    Picture
+                </td>
+            <td>
+                Info
+            </td>
+            </th>
+
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

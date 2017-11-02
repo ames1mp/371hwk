@@ -1,0 +1,129 @@
+body {
+    background-color: black;
+    font-family: Centaur;
+    color: dodgerblue;
+    text-align: left;
+    height: 100%;
+    width: 100%;
+}
+
+header {
+    text-align: left;
+    padding-bottom: 10px;
+    postion: static;
+}
+
+img {
+    margin-right: 200px;
+    position: absolute;
+
+}
+
+h1 {
+    position: absolute;
+    top: 10%;
+    left: 25%;
+}
+
+#main {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+}
+#queryBox {
+    position: absolute;
+    top: 10%;
+}
+
+#searchArea {
+    display: block;
+    margin: 10px;
+    margin-bottom: 25px;
+
+}
+
+#results {
+    position: absolute;
+    top: 1%;
+    left: 40%;
+    font-size: 110%;
+}
+
+input {
+    font-size: 110%;
+    background-color: transparent;
+    outline: none;
+    padding: 10px 15px;
+    border-color: dodgerblue;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 22px;
+    transition: all 0.2s linear;
+    color: white;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.checkBox {
+    background-color: black;
+    color: transparent;
+    outline: none;
+    border-color: dodgerblue;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 22px;
+}
+
+.button {
+    cursor: pointer;
+    font-size: 200%;
+    color: dodgerblue;
+    outline: none;
+    background: transparent;
+    border-color: dodgerblue;
+    border-width: 2px;
+    border-style: solid;
+    text-transform: uppercase;
+    padding: 10px 40px;
+    border-radius: 22px;
+    transition: all 0.2s linear;
+    margin: 10px;
+}
+
+.button:hover {
+    background-color: dodgerblue;
+    color: white;
+    border-color: crimson;
+
+}
+
+#errorBox {
+    position: relative;
+    text-align: center;
+    font-size: 120%;
+    border-color: crimson;
+    border-width: 2px;
+    border-style: solid;
+    margin-left: 20px;
+    padding: 10px 15px;
+    border-radius: 22px;
+}
+
+h1 {
+    display: inline;
+
+
+}
+
+#HDBox {
+    display: inline;
+}
+
+#dateBox:invalid {
+    border-color: crimson;
+}
+
+
+div {
+
+}
