@@ -6,10 +6,12 @@ $(document).ready(function(){
     const baseURL = "https://api.nasa.gov/planetary/apod?api_key=QxsDf29Nf9KWvJlpSCOGPH1YdPOc975UFD4U4eVO";
 
     $("table").hide();
+
     $("#errorBox").hide();
 
 
     $("#submitBtn").click(function(){
+        $("#resultsTable").empty();
         $("#errorBox").hide();
         //get the date from the input box and make sure it's in the range 6/16/1995 - Current Date
         var date = $("#dateBox").val();
@@ -19,19 +21,28 @@ $(document).ready(function(){
 
         var hd = $("#HDBox").is(':checked');
         var queryURL = baseURL + "&date=" + date + "&" + "hd=" + hd;
-        /*$.get(queryURL, (json, status) function(){
-            if(status == "success") {
-                alert("success");
-        }
-        });*/
         $.ajaxSetup({url: queryURL, error:function(result) {
             $("#errorBox").text("Enter a valid date");
             $("#errorBox").fadeIn(400).fadeOut(400).fadeIn(400).fadeIn(400).fadeOut(400).fadeIn(400);
             return;
         }});
         $.ajaxSetup({url: queryURL, success:function(result) {
+
             $("table").fadeIn(1500, "swing");
-            $("#queryBox").animate({top: "350px"});
+
+            var date = result.date;
+            var title = result.title;
+            var exp = result.explanation;
+            var pic = result.hdurl
+            var copyright = result.copyright;
+            var picHTML = "<tr><td><img src='" + pic + "' height='700' width='900'>";
+            $("#resultsTable").append('<tr><th>' + title + '</th></tr>');
+            $("#resultsTable").append(picHTML);
+            //$("#resultsTable").append('<tr><td>' + copyright + '</td></tr>');
+            $("#resultsTable").append('<tr><td>' + exp + '</td></tr>');
+            var tableHeight = $("#resultsTable").height();
+            $("#queryBox").animate({top: tableHeight});
+
         }});
         $.ajax();
 
