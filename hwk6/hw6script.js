@@ -19,11 +19,12 @@ $(document).ready(function(){
         if (validate(date))
             return;
 
-        var hd = $("#HDBox").is(':checked');
-        var queryURL = baseURL + "&date=" + date + "&" + "hd=" + hd;
+       /* var hd = $("#HDBox").is(':checked');*/
+        var queryURL = baseURL + "&date=" + date;
         $.ajaxSetup({url: queryURL, error:function(result) {
             $("#errorBox").text("Enter a valid date");
-            $("#errorBox").fadeIn(400).fadeOut(400).fadeIn(400).fadeIn(400).fadeOut(400).fadeIn(400);
+            $("#errorBox").fadeIn(400).fadeOut(400).fadeIn(400).fadeIn(400).fadeOut(400).fadeIn(400).scrollIntoView();
+            $('body').scrollTo("#errorBox");
             return;
         }});
         $.ajaxSetup({url: queryURL, success:function(result) {
@@ -33,13 +34,18 @@ $(document).ready(function(){
             var date = result.date;
             var title = result.title;
             var exp = result.explanation;
-            var pic = result.hdurl
+            var mediaType = result.media_type;
+            var pic = result.url
             var copyright = result.copyright;
-            var picHTML = "<tr><td><img src='" + pic + "' height='700' width='900'>";
-            $("#resultsTable").append('<tr><th>' + title + '</th></tr>');
-            $("#resultsTable").append(picHTML);
+            var picHTML = "<tr><td><img src='" + pic + "' height='700' width='700' align='left'>";
+            $("#resultsTable").append('<tr><th align="center">' + title + "</th></tr>");
+            if (mediaType === "image") {
+                $("#resultsTable").append(picHTML);
+            } else {
+                $("#resultsTable").append('<tr><td><iframe width="700" height="650" src="' + pic + '?autoplay=1' +  '"></iframe><tr><td>');
+            }
             //$("#resultsTable").append('<tr><td>' + copyright + '</td></tr>');
-            $("#resultsTable").append('<tr><td>' + exp + '</td></tr>');
+            $("#resultsTable").append("<tr><td width='200px'>" + exp + "</td></tr>");
             var tableHeight = $("#resultsTable").height();
             $("#queryBox").animate({top: tableHeight});
 
@@ -72,6 +78,7 @@ $(document).ready(function(){
         }
         if (dateArr[0] == today.getFullYear() && dateArr[1] > (today.getMonth()) + 1) {
             $("#errorBox").text("Enter a date before today");
+            $("#errorBox").scrollIntoView(true);
             $("#errorBox").fadeIn(400).fadeOut(400).fadeIn(400).fadeIn(400).fadeOut(400).fadeIn(400);
             return true;
         }

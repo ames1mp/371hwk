@@ -13,10 +13,6 @@ header {
     postion: static;
 }
 
-img:not #logo {
-    max-height: 200px;
-    max-width: 200px;
-}
 #logo {
     margin-right: 200px;
     position: absolute;
@@ -28,6 +24,12 @@ h1 {
     top: 10%;
     left: 25%;
 }
+h3 {
+    position: absolute;
+    top: 15%;
+    left: 25%;
+}
+
 
 #main {
     position: absolute;
@@ -118,9 +120,13 @@ h1 {
     display: inline;
 }
 
+#instructions {
+    font-size: 73%;
+}
+
 th {
     font-size: 120%;
-    text-align: center;
+    text-align: left;
 }
 
 #HDBox {
