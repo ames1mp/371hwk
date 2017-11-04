@@ -19,7 +19,6 @@ $(document).ready(function(){
         if (validate(date))
             return;
 
-       /* var hd = $("#HDBox").is(':checked');*/
         var queryURL = baseURL + "&date=" + date;
         $.ajaxSetup({url: queryURL, error:function(result) {
             $("#errorBox").text("Enter a valid date");
@@ -44,16 +43,12 @@ $(document).ready(function(){
             } else {
                 $("#resultsTable").append('<tr><td><iframe width="700" height="650" src="' + pic + '?autoplay=1' +  '"></iframe><tr><td>');
             }
-            //$("#resultsTable").append('<tr><td>' + copyright + '</td></tr>');
             $("#resultsTable").append("<tr><td width='200px'>" + exp + "</td></tr>");
             var tableHeight = $("#resultsTable").height();
-            $("#queryBox").animate({top: tableHeight});
+            $("#queryBox").animate({top: tableHeight*.66});
 
         }});
         $.ajax();
-
-
-
     });
 
     function validate(date) {
