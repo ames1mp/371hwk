@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA APOD Viewer</title>
+    <link rel="stylesheet" type="text/css" href="hw6style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="hw6script.js"></script>
+</head>
+<body>
+<header>
+    <img id="logo" src="logo.svg">
+    <h1>Astronomy Picture of the Day Viewer</h1>
+    <h3>(Try a date before 1995-06-16 (invalid), then try 2017-06-07 (video), 2017-11-01 (picture), and more)</h3>
+</header>
+
+<div id="main">
+    <div id ="queryBox">
+        <div id="searchArea">
+            DATE: <input type="date" id="dateBox" name="dateBox" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+            <p id="instructions">
+            If date control interface is not supported,
+            enter dates in the format YYYY-MM-DD.
+            </p>
+        </div>
+        <input type="submit" class="button" id="submitBtn" name="submitBtn" value="Submit">
+        <p id="errorBox">Errors Go Here</p>
+    </div>
+    <div id="results">
+        <table id = "resultsTable">
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+/*
+Some of the CSS code is from http://matthewjamestaylor.com/blog/keeping-footers-at-the-bottom-of-the-page
+*/
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: deepskyblue;
+    background-image: url("background.jpg");
+    font-family: "Impact", Charcoal, sans-serif;
+    color: white;
+}
+
+#container {
+    height: 100%;
+    position: relative;
+}
+
+#header {
+    padding: 10px;
+    text-align: center;
+}
+
+#body {
+    padding: 10px;
+    padding-bottom: 60px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 93%;
+    height: 60px;
+    color: white;
+    padding: 50px;
+}
+
+.bodyEle{
+    margin: 50px;
+}
+
+h1, h2, h3 {
+     color: white;
+ }
+
+lh {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+}
+
+ol {
+    color: white;
+}
+
+li {
+    margin: 20px;
+    padding-left: 15px;
+}
+
+label, input{
+    display: block;
+
+}
+
+label {
+    margin-bottom: 20px;
+}
+
+#homeLink{
+    float: left;
+    width: 60%;
+}
+#aboutBg{
+    float: right;
+    width: 40%;
+}
+
+a {
+    color: darkorange;
+    text-decoration: none;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 50px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+tr , th {
+    vertical-align: bottom;
+}
+
+th  {
+    padding: 10px 0;
+}
+
+td {
+    padding: 10px 0;
+}
+
+a:hover {
+    color: darkgrey;
+}
+
+a:active {
+    color: pink;
+}
+
+a:visited {
+    color: goldenrod;
+}
+
+#popBox {
+    background-color: lemonchiffon;
+    color: blue;
+}
+
+input:invalid {
+    background-color: deeppink;
+}
+
+input:valid:not(.button, #popBox) {
+    background-color: greenyellow;
+}

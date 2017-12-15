@@ -1,0 +1,160 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
+<script src="../../node_modules/redux/dist/redux.js"></script>
+<script>
+    const initalState = {friend: {name: "Mike", age: 33, phone: "7773851"}};
+
+    const myReducer = (state = initalState, action) => {
+        switch (action.type) {
+            case "GET":
+                if (action.payload != null)
+                return Object.assign({}, state, {friend: {name: action.payload.name, age: action.payload.age, phone: action.payload.phone}});
+            default: return state;
+        }
+    };
+    const store = Redux.createStore(myReducer);
+    ReduxMixin = PolymerRedux(store);
+</script>
+
+
+
+<dom-module id="my-main">
+  <template>
+      <style include="iron-flex iron-flex-alignment"></style>
+    <style>
+      :host {
+        display: block;
+      }
+      iron-list {
+          height: 50vh;
+          width: 60vw;
+      }
+      paper-card {
+          width: 100%;
+          background: lightsalmon;
+          border-radius: 10px;
+          padding: 15px;
+      }
+
+      .item {
+          padding: 8px;
+      }
+    </style>
+
+    <firebase-app id="myFireApp"
+                  api-key="AIzaSyBqw0EpJshfwUyY6DXsnt_X27_yQn0JHxM"
+                  auth-domain="hwk5-4f416.firebaseapp.com"
+                  storage-bucket="hwk5-4f416.appspot.com"
+                  messaging-sender-id="489472781832"
+                  database-url="https://hwk5-4f416.firebaseio.com">
+    </firebase-app>
+    <firebase-query path="/friend" data="{{qryData}}"></firebase-query>
+    <iron-list items="[[qryData]]" as="q" selected-item="{{selectedItem}}" selection-enabled="true" >
+        <template>
+            <div class="item layout vertical">
+                <paper-card heading="[[q.name]]" elevation="2">
+                    <div class="card-content">
+                    </div>
+                    <div class="card-actions">
+                        <div class="item layout horizontal">
+                        </div>
+                    </div>
+                </paper-card>
+            </div>
+        </template>
+    </iron-list>
+  </template>
+
+    <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class MyMain extends ReduxMixin(Polymer.Element) {
+        constructor() {
+            super();
+        }
+        static get is() { return 'my-main'; }
+
+      static get properties() {
+        return {
+          selectedItem: {
+            type: Object,
+              observer: "_friendClicked"
+          }
+        };
+      }
+      _friendClicked(friendInfo) {
+          this.dispatch({type: "GET", payload: friendInfo});
+      }
+    }
+
+    window.customElements.define(MyMain.is, MyMain);
+  </script>
+</dom-module>
+
+
+
+<dom-module id="friend-info">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            paper-card {
+                width: 50%;
+                background: lightsalmon;
+                border-radius: 10px;
+                padding: 15px;
+                margin-top: 40px;
+            }
+
+            .item {
+                padding: 8px;
+            }
+        </style>
+
+        <paper-card>
+            <div class="card-content">
+                <div>Age: [[age]]</div>
+                <div>Phone: [[phone]]</div>
+            </div>
+            <div class="card-actions">
+                <div class="item layout horizontal">
+                </div>
+            </div>
+        </paper-card>
+    </template>
+
+    <script>
+        class FriendInfo extends ReduxMixin(Polymer.Element) {
+
+            static get is() {return 'friend-info';}
+
+            static get properties() {
+                return {
+                    phone: {
+                        type: String,
+                        statePath: 'friend.phone'
+                    },
+
+                    age: {
+                        type: Number,
+                        statePath: 'friend.age'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(FriendInfo.is, FriendInfo);
+    </script>
+</dom-module>

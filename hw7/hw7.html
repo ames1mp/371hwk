@@ -1,0 +1,119 @@
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
+<dom-module id="my-main">
+  <template>
+    <style include="iron-flex iron-flex-alignment"></style>
+    <style>
+      :host {
+        margin: auto;
+      }
+      
+      iron-list {
+        height: 50vh;
+        width: 60vw;
+      }
+      paper-card {
+        width: 100%;
+        background: lightsalmon;
+        border-radius: 10px;
+        padding: 15px;
+      }
+   
+      .item {
+        padding: 8px;
+      }  
+      
+    </style>
+    <firebase-app id="myFireApp"
+    api-key="AIzaSyBqw0EpJshfwUyY6DXsnt_X27_yQn0JHxM"
+    auth-domain="hwk5-4f416.firebaseapp.com"
+    storage-bucket="hwk5-4f416.appspot.com"
+    messaging-sender-id="489472781832"
+    database-url="https://hwk5-4f416.firebaseio.com">
+</firebase-app>
+<firebase-query path="/friend" data="{{qryData}}"></firebase-query>
+
+<paper-button raised id="diaBtn" on-click="openDial">Add Friend</paper-button>
+<iron-list items="[[qryData]]" as="q">
+  <template>
+    <div class="item layout vertical">
+      <paper-card heading="[[q.name]]" elevation="2"> 
+          <div>Age: [[q.age]]</div>
+          <div> Phone: [[q.phone]]</div>
+        <div class="card-content">
+          
+        </div>
+          <div class="card-actions">
+            <div class="item layout horizontal">
+              <iron-icon on-click="removeEntry" icon="icons:cancel"></iron-icon>
+              <div>Delete Entry</div>
+            </div>
+          </div>
+      </paper-card>
+    </div>
+  </template>
+</iron-list>
+<paper-dialog id="newFriend" modal on-iron-overlay-closed="dialClosed">
+    <paper-input id="nameInput" label="Name"></paper-input>
+    <paper-input id="ageInput" label="Age"></paper-input>
+    <paper-input id="phoneInput" label="Phone"></paper-input>
+    <div>
+      <paper-button dialog-dismiss>Cancel</paper-button>
+      <paper-button dialog-confirm>Add</paper-button>
+    </div>
+  </paper-dialog>
+</template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class MyMain extends Polymer.Element {
+      constructor() {
+        super();
+      }
+      static get is() { return 'my-main'; }
+
+      dialClosed() {
+        if (this.$.newFriend.closingReason.confirmed) {
+          var dbRef = this.$.myFireApp.app.database();
+          dbRef.ref("/friend").push().set({name: this.$.nameInput.value, age: this.$.ageInput.value, phone: this.$.phoneInput.value});
+        }
+      }
+      
+      openDial() {
+        this.$.newFriend.open();
+      }
+
+      removeEntry(ev) {
+        var dbRef = this.$.myFireApp.app.database();
+        var query = dbRef.ref("/friend").orderByChild('name').equalTo(ev.model.q.name);
+        query.on('child_added', function(snapshot) {
+        snapshot.ref.remove();
+        })
+      }
+
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'my-main'
+          }
+        };
+      }
+    }
+
+    customElements.define(MyMain.is, MyMain);
+  </script>
+</dom-module>

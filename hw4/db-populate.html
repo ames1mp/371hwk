@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Upload a CSV File</title>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <h1>Mike Ames CIS 371</h1>
+        <h2>Homework #4: PHP and Database Access</h2>
+    </div>
+    <div id="body">
+        <h2 class="bodyEle">Upload a CSV File to Populate the Table</h2>
+        <form class="bodyEle"  enctype="multipart/form-data" action="db-populate.php" method="post">
+            File name:&emsp;&emsp;&emsp;<input id = "popBox" name ="upfile" type="file" />  </br> </br> </br>
+            <input class="button" type="submit" name="submit" value="Upload" />
+        </form>
+    </div>
+    <div id="footer">
+        <p id="homeLink"><a href="home.html">Home</a> </p>
+        <p id="aboutBg">About the Background: This image is released as Open Source under the GPL (GNU General Public License) 2.0</p>
+    </div>
+</div>
+
+</body>
+</html>

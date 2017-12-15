@@ -1,0 +1,7 @@
+{
+  "name": "hw08",
+  "short_name": "hw08",
+  "description": "hw08",
+  "start_url": "/",
+  "display": "standalone"
+}
