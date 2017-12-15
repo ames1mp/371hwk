@@ -15,7 +15,46 @@
 
 
 
-        Table dropped.</br></br></br>Table Created!</br>
+        <?php
+
+        //I referenced https://www.w3schools.com/php/php_mysql_create_table.asp in the creation of this code.
+        $host = 'cis.gvsu.edu';
+        $username = 'amesm';
+        $password = 'amesm';
+        $dbName = 'amesm';
+
+        $conn = new mysqli($host, $username, $password, $dbName);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $dropSQL = "DROP TABLE IF EXISTS friend;";
+
+        if ($conn->query($dropSQL) == true ) {
+            echo("Table dropped.</br></br></br>");
+        } else {
+            echo("Error dropping table " . $conn->error . "</br>");
+        }
+
+        $createSQL = "
+
+        CREATE TABLE friend (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255),
+        phone VARCHAR(255),
+        age INT         
+        )";
+
+        if ($conn->query($createSQL) == true ) {
+            echo("Table Created!</br>");
+        } else {
+            echo("Failed to create table " . $conn->error . "</br>");
+        }
+
+        $conn->close();
+        ?>
+
 
 
 

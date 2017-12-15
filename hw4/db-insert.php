@@ -12,7 +12,34 @@
     </div>
     <div id="body">
 
-        Inserted ,&nbsp;,&nbsp;</br>    </div>
+        <?php
+
+        $host = 'cis.gvsu.edu';
+        $username = 'amesm';
+        $password = 'amesm';
+        $dbName = 'amesm';
+
+        $conn = new mysqli($host, $username, $password, $dbName);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $age = $_POST['age'];
+
+        $sqlInsert = "INSERT INTO friend (name, phone, age) VALUES ('".$name."', '".$phone."','$age');";
+
+        if ( ($conn->query($sqlInsert)) == true ) {
+            echo "Inserted " . $name . ",&nbsp;" . $phone . ",&nbsp;" . $age ."</br>";
+        } else {
+            echo "Failed to insert row " . $conn->error . "</br>";
+            }
+
+        $conn->close();
+        ?>
+    </div>
     <div id="footer">
         <p id="homeLink"><a href="home.html">Home</a> </p>
         <p id="aboutBg">About the Background: This image is released as Open Source under the GPL (GNU General Public License) 2.0</p>

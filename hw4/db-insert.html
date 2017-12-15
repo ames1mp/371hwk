@@ -13,25 +13,27 @@
     </div>
     <div id="body">
         <h2 class="bodyEle">Insert Rows into the Table</h2>
-            <form class="bodyEle" action="db-insert.php" method="post">
-                <h3>Insert a new row:</h3></br>
+        <form class="bodyEle" action="db-insert.php" method="post">
+            <h3>Insert a new row:</h3></br>
 
-                <label for="name">Name</label>
-                <input type="text" name="name" pattern="([A-Z][a-z]* (([A-Z]\.)|([A-Z])|([A-Z][a-z]*))?\s?[A-Z][a-z]*)" required="true"></br>
+            <label for="name">Name</label>
+            <input type="text" name="name" pattern="([A-Z][a-z]* (([A-Z]\.)|([A-Z])|([A-Z][a-z]*))?\s?[A-Z][a-z]*)"
+                   required="true"></br>
 
-                <label for="phone">Phone Number</label>
-                <input type="text" name="phone" pattern="[0-9]{7}([0-9]{3})?" required="true"></br>
+            <label for="phone">Phone Number</label>
+            <input type="text" name="phone" pattern="[0-9]{7}([0-9]{3})?" required="true"></br>
 
-                <label for="age">Age</label>
-                <input type="number" name="age" min="1" required="true"></br>
+            <label for="age">Age</label>
+            <input type="number" name="age" min="1" required="true"></br>
 
-                <input id="button" type="submit" value="Submit" name="submit" >
+            <input class="button" type="submit" value="Submit" name="submit">
 
         </form>
     </div>
     <div id="footer">
-        <p id="homeLink"><a href="home.html">Home</a> </p>
-        <p id="aboutBg">About the Background: This image is released as Open Source under the GPL (GNU General Public License) 2.0</p>
+        <p id="homeLink"><a href="home.html">Home</a></p>
+        <p id="aboutBg">About the Background: This image is released as Open Source under the GPL (GNU General Public
+            License) 2.0</p>
     </div>
 </div>
 </body>

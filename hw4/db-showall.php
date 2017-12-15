@@ -12,7 +12,56 @@
     </div>
     <div id="body">
         <table>
-            0 Results Retrieved
+            <?php
+
+            //I referenced https://www.w3schools.com/php/php_mysql_create_table.asp in the creation of this code.
+            $host = 'cis.gvsu.edu';
+            $username = 'amesm';
+            $password = 'amesm';
+            $dbName = 'amesm';
+
+            $conn = new mysqli($host, $username, $password, $dbName);
+
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $sqlQuery = "SELECT * FROM friend;";
+
+            $data = $conn->query($sqlQuery);
+
+            if ($data->num_rows == 0) {
+                echo "0 Results Retrieved";
+            } else {
+
+                echo "
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Age</th>
+                </tr>";
+
+                while ($line = $data->fetch_assoc()) {
+
+                    if (strlen($line["phone"]) == 7) {
+                        $phoneNum = substr($line["phone"],0,3) . "-" . substr($line["phone"],3);
+                    } else {
+                        $phoneNum = "(" . substr($line["phone"],0,3) . ")&nbsp;". substr($line["phone"],3,3)
+                            . "-" . substr($line["phone"],6);
+                    }
+                    echo "</tr>" .
+                            "<td>" . $line["id"]    . "</td>" .
+                            "<td>" . $line["name"]  . "</td>" .
+                            "<td>" . $phoneNum      . "</td>" .
+                            "<td>" . $line["age"]   . "</td>" .
+                         "</tr>";
+                }
+            }
+
+            $conn->close();
+            ?>
+
 
         </table>
     </div>
