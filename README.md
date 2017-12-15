@@ -1,5 +1,3 @@
-��# 371 hwk
-
 A collection of homework assignments for CIS 371: Web Application Programming.
 
 Assignments include:
